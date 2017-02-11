@@ -9,13 +9,25 @@
 // });
 
 var http = require('http')
+var express = require('express');
+var app = express();
+var server = http.createServer(app);
 
-http.createServer(function(req,res){
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end("Hello world");
-}).listen(3000, '127.0.0.1');
+function EchoFunc(req,res){
+  res.end("(´・ω・｀)!"+req.url)
+};
 
-console.log("3(´・ω・｀)!")
-console.log("2(´・ω・｀)!")
-console.log("1(´・ω・｀)!")
-console.log("Open(´・ω・｀)!")
+function HelloWorld(req,res){
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end("Hello world");
+};
+
+app.get('/',HelloWorld);
+app.get('/echo/',EchoFunc);
+
+server.listen(3000, '127.0.0.1',function(){
+  console.log("3(´・ω・｀)!")
+  console.log("2(´・ω・｀)!")
+  console.log("1(´・ω・｀)!")
+  console.log("Open(´・ω・｀)!")
+});
